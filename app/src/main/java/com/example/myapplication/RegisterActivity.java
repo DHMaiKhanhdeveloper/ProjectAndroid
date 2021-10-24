@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText editTextRegisterFullName, editTextRegisterEmail,
@@ -26,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private RadioButton radioButtonRegisterGenderSelected;
     private RadioGroup radioGroupRegisterGender;
-
+    private static final String TAG="RegisterActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,23 +122,68 @@ public class RegisterActivity extends AppCompatActivity {
 
             private void registerUser(String textFullName, String textEmail, String textDoB, String textMobile, String textGender, String textPassword) {
                 FirebaseAuth auth = FirebaseAuth.getInstance(); // xac thuc firebase
-                auth.createUserWithEmailAndPassword(textEmail,textEmail).addOnCompleteListener(RegisterActivity.this,
+                // tạo user profile
+                auth.createUserWithEmailAndPassword(textEmail,textPassword).addOnCompleteListener(RegisterActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(RegisterActivity.this,"User registered successfully",Toast.LENGTH_LONG).show();
-                                    FirebaseUser firebaseUser =auth.getCurrentUser(); // auth la bien xac thuc firebase
-                                    // Gui xac nhan Email
-                                    firebaseUser.sendEmailVerification();
-                                    //Mo ho so nguoi dung khi dang ki thanh cong
-//                                    Intent intent = new Intent(RegisterActivity.this,UserProfileActivity.class);
-//                                    // Ngan nguoi dung dang ki thanh cong khong quay lai dang ki lai lan nua , nguoi dung dang ki thanh cong se chuyen den trang ho so
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                                    startActivity(intent);
-//                                    finish(); // dong hoat dong Register
 
+                                    FirebaseUser firebaseUser =auth.getCurrentUser(); // auth la bien xac thuc firebase
+
+                                    //Cập nhật hiện tên user
+                                    UserProfileChangeRequest profileChangeRequest= new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+                                    firebaseUser.updateProfile(profileChangeRequest);
+
+                                    //Nhap du lieu vao Firebase Realtime Database java object
+                                    ReadWriteUserDetails writerUserDetails = new ReadWriteUserDetails(textDoB,textGender,textMobile);
+
+                                    //trích xuất tham chiếu người dùng từ cơ sở dữ liệu để "đăng ký người dùng"
+                                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+                                    referenceProfile.child(firebaseUser.getUid()).setValue(writerUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                // Gui xac nhan Email
+                                                firebaseUser.sendEmailVerification();
+
+                                                Toast.makeText(RegisterActivity.this,"User registered successfully, Please vertify your email",Toast.LENGTH_LONG).show();
+                                                //Mo ho so nguoi dung khi dang ki thanh cong
+//                                          Intent intent = new Intent(RegisterActivity.this,UserProfileActivity.class);
+//                                          // Ngan nguoi dung dang ki thanh cong khong quay lai dang ki lai lan nua , nguoi dung dang ki thanh cong se chuyen den trang ho so
+//                                          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                                          startActivity(intent);
+//                                          finish(); // dong hoat dong Register
+                                            }else{
+                                                Toast.makeText(RegisterActivity.this,"User registered failed, Please try again",Toast.LENGTH_LONG).show();
+
+                                            }
+                                            // ẩn progressbar dù có đăng nhập thành công hay thất bại
+                                            progressBar.setVisibility(View.GONE);
+
+                                        }
+                                    });
+
+
+                                }else{
+                                    try{
+                                        throw task.getException(); // java exception
+                                    } catch (FirebaseAuthWeakPasswordException e){
+                                        editTextRegiterPass.setError("Your password is too weak. Kindly use a mix of alphabets, numbers");
+                                        editRegisterConfirmPass.requestFocus();
+                                    } catch (FirebaseAuthInvalidCredentialsException e){ // Trường hợp ngoại lệ thông tin đăng nhập không hợp lệ của Firebase Auth
+                                        editTextRegiterPass.setError("Your email is invalid or already in use. Kindly re-enter");
+                                        editTextRegiterPass.requestFocus();
+                                    }catch (FirebaseAuthUserCollisionException e){ // Ngoại lệ va chạm người dùng
+                                        editTextRegiterPass.setError("User is already registered with this email. Use another email.");
+                                        editTextRegiterPass.requestFocus();
+                                    }catch (Exception e){
+                                        Log.e(TAG, e.getMessage());
+                                        Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                         });
