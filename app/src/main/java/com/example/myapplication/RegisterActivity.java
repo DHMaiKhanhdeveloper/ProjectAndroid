@@ -3,12 +3,14 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -27,12 +29,17 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText editTextRegisterFullName, editTextRegisterEmail,
             editTextRegisterDoB,editTextRegisterMobile,editTextRegiterPass,editRegisterConfirmPass;
     private ProgressBar progressBar;
     private RadioButton radioButtonRegisterGenderSelected;
     private RadioGroup radioGroupRegisterGender;
+    private DatePickerDialog picker;
     private static final String TAG="RegisterActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,25 @@ public class RegisterActivity extends AppCompatActivity {
         radioGroupRegisterGender = findViewById(R.id.radio_group_register_gender);
         radioGroupRegisterGender.clearCheck();
 
+        // Cài đặt DatePicker
+        editTextRegisterDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month =calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                //Date Picker Dialog
+                picker = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        editTextRegisterDoB.setText(dayOfMonth + "/" + (month+1) + "/" + year);
+                    }
+                },year,month,day);
+                picker.show();
+            }
+        });
 
         Button buttonRegister = findViewById(R.id.button_register);
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +93,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String textPassword = editTextRegiterPass.getText().toString();
                 String textConfirmPass = editRegisterConfirmPass.getText().toString();
                 String textGender;
+                //Xác thực điện thoại di động sử dụng Matcher và Pattern
+                String mobileRegex ="[0][0-9]{9}";
+                Matcher mobileMatcher;
+                Pattern mobilePattern = Pattern.compile(mobileRegex); // xác định mẫu di động
+                mobileMatcher = mobilePattern.matcher(textMobile);
 
                 if(TextUtils.isEmpty(textFullName)){
                     Toast.makeText(RegisterActivity.this,"Please enter your full name",Toast.LENGTH_LONG).show();
@@ -96,7 +127,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Please re-enter your mobile ",Toast.LENGTH_LONG).show();
                     editTextRegisterMobile.setError("Mobile shoule be 10 digits");
                     editTextRegisterMobile.requestFocus();
-                }else if(TextUtils.isEmpty(textPassword)){
+                }else if(!mobileMatcher.find()){
+                    Toast.makeText(RegisterActivity.this,"Please re-enter your mobile ",Toast.LENGTH_LONG).show();
+                    editTextRegisterMobile.setError("Mobile is not valid");
+                    editTextRegisterMobile.requestFocus();
+                } else if(TextUtils.isEmpty(textPassword)){
                     Toast.makeText(RegisterActivity.this,"Please enter your password ",Toast.LENGTH_LONG).show();
                     editTextRegiterPass.setError("Password is required");
                     editTextRegiterPass.requestFocus();

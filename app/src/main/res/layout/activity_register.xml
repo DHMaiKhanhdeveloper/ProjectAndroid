@@ -32,16 +32,17 @@
             android:text="Full Name"
             android:textColor="#555555"
             android:textSize="16sp" />
+
         <EditText
+            android:id="@+id/editText_register_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_register_full_name"
+            android:layout_below="@+id/textview_register_full_name"
+            android:background="@drawable/border"
             android:hint="Enter your full name"
             android:inputType="textPersonName"
-            android:textSize="16sp"
             android:padding="6dp"
-            android:layout_below="@+id/textview_register_full_name"
-            android:background="@drawable/border"/>
+            android:textSize="16sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,16 +73,18 @@
             android:textSize="16sp"
             android:padding="6dp"
             android:layout_marginTop="10dp" />
+
         <EditText
+            android:id="@+id/editText_register_dob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_register_dob"
-            android:hint="Enter your date of birth (dd/mm/yyyy)"
-            android:inputType="date"
-            android:textSize="16sp"
-            android:padding="6dp"
             android:layout_below="@+id/textview_register_dob"
-            android:background="@drawable/border"/>
+            android:background="@drawable/border"
+            android:hint="Select your date of birth (dd/mm/yyyy)"
+            android:inputType="date"
+            android:focusable="false"
+            android:padding="6dp"
+            android:textSize="16sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,16 +148,17 @@
             android:textSize="16sp"
             android:padding="6dp"
             android:layout_marginTop="10dp" />
+
         <EditText
+            android:id="@+id/editText_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_register_password"
+            android:layout_below="@+id/textview_register_password"
+            android:background="@drawable/border"
             android:hint="Enter your password "
             android:inputType="textPassword"
-            android:textSize="16sp"
             android:padding="6dp"
-            android:layout_below="@+id/textview_register_password"
-            android:background="@drawable/border"/>
+            android:textSize="16sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
