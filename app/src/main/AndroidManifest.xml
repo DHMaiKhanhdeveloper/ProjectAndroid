@@ -11,7 +11,9 @@
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".HomeScreenDoctor"
-            android:exported="true" />
+            android:exported="true"
+            android:label="@string/title_activity_home_screen_doctor"
+            android:theme="@style/Theme.MyApplication.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -23,6 +25,9 @@
             android:exported="true" />
         <activity
             android:name=".Background"
+            android:exported="true" />
+        <activity
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

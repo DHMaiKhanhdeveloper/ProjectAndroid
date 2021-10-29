@@ -11,4 +11,5 @@
     <color name="lime">#36DD11</color>
     <color name="dark_green">#1D5311</color>
     <color name="light_gray">#C4CACC</color>
+    <color name="background">#D5493F</color>
 </resources>

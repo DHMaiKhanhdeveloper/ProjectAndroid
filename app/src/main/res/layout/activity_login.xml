@@ -20,26 +20,28 @@
             android:text="please enter your credentials to login"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/textView_login_email"
-            android:layout_marginTop="50dp"
-            android:layout_below="@+id/textView_login_head"
-            android:text="Email"
-            android:padding="6dp"
-            android:textColor="#555555"
-            android:textSize="16sp"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_login_email"
-            android:layout_below="@+id/textView_login_email"
-            android:hint="Enter Email"
-            android:background="@drawable/border"
+            android:layout_below="@+id/textView_login_head"
+            android:layout_marginTop="50dp"
             android:padding="6dp"
-            android:textSize="16dp"
-            android:inputType="textEmailAddress"/>
+            android:text="Email"
+            android:textColor="#555555"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editText_login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_login_email"
+            android:background="@drawable/border"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:padding="6dp"
+            android:textSize="16dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,15 +68,16 @@
             android:padding="6dp"
             android:textSize="16dp"
             android:inputType="textPassword"/>
+
         <Button
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button_login"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
             android:layout_below="@+id/editText_login_password"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="70dp"
+            android:text="Login" />
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

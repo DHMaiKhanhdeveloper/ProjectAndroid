@@ -6,14 +6,25 @@
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/background_doctor.xml" value="0.2703125" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/background_login.xml" value="0.1" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/background_patient.xml" value="0.2703125" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/border.xml" value="0.1421875" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/button_2.xml" value="0.2703125" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable-v24/parent.xml" value="0.2703125" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
-        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_background.xml" value="0.6" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/drawable/ic_menu_camera.xml" value="0.140625" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_background.xml" value="0.176" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_home_screen_doctor.xml" value="0.1" />
-        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_login.xml" value="0.536" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/activity_splash.xml" value="0.264" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/app_bar_home_screen_doctor.xml" value="0.1" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/content_home_screen_doctor.xml" value="0.1" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/fragment_gallery.xml" value="0.12447916666666667" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/fragment_home.xml" value="0.12447916666666667" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/fragment_slideshow.xml" value="0.12447916666666667" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/layout/nav_header_home_screen_doctor.xml" value="0.12447916666666667" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/menu/activity_main_drawer.xml" value="0.2046875" />
+        <entry key="..\:/deadline/Project/part2/Project/app/src/main/res/menu/home_screen_doctor.xml" value="0.2046875" />
       </map>
     </option>
   </component>

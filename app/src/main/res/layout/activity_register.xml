@@ -63,16 +63,17 @@
             android:padding="6dp"
             android:layout_below="@+id/textview_register_email"
             android:background="@drawable/border"/>
+
         <TextView
+            android:id="@+id/textview_register_dob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textview_register_dob"
             android:layout_below="@+id/editText_register_email"
+            android:layout_marginTop="10dp"
+            android:padding="6dp"
             android:text="Date off Birth (dd/mm/yyyy)"
             android:textColor="#555555"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:layout_marginTop="10dp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editText_register_dob"
@@ -80,9 +81,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_register_dob"
             android:background="@drawable/border"
+            android:focusable="false"
             android:hint="Select your date of birth (dd/mm/yyyy)"
             android:inputType="date"
-            android:focusable="false"
             android:padding="6dp"
             android:textSize="16sp" />
         <TextView
